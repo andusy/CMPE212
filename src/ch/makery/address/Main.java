@@ -2,7 +2,14 @@ package ch.makery.address;
 
 import java.io.IOException;
 
+import ch.makery.address.model.Book;
+import ch.makery.address.model.Device;
+import ch.makery.address.model.Item;
+import ch.makery.address.model.LibrarySystem;
+import ch.makery.address.view.OverviewController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +20,18 @@ public class Main extends Application {
 
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    private LibrarySystem sys = new LibrarySystem();
+    private ObservableList<Item> itemData = FXCollections.observableArrayList();
+    
+    public Main(){
+    	Item a = new Device();
+    	Item b = new Book();
+    }
+    
+    public ObservableList<Item> getItemData() {
+        return itemData;
+    }
 
 	@Override
     public void start(Stage primaryStage) {
@@ -49,6 +68,9 @@ public class Main extends Application {
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
+            
+            OverviewController controller = loader.getController();
+            controller.setMain(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
